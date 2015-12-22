@@ -1,9 +1,17 @@
 
 <h1> Add A New Cat </h1>
 
+<ul>
+  <% @cat.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+  <% end %>
+</ul>
+
 <form action="<%= cats_url %>" method="post">
   <label for="cat_name"> Name: </label>
-  <input type="text" id="cat_name" name="cat[name]">
+  <input type="text" id="cat_name" name="cat[name]" value="<%= @cat.name %>">
 </br>
 
   <label for="cat_sex_female"> Female: </label>
@@ -28,13 +36,13 @@
 </br>
 
   <label for="cat_birth_date"> Birth Date: </label>
-  <input type="date" id="cat_birth_date" name="cat[birth_date]">
+  <input type="date" id="cat_birth_date" name="cat[birth_date]" value="<%= @cat.birth_date %>" >
 </br>
 
   <label for="cat_description"> Description: </label>
-  <textarea id="cat_description" name="cat[description]">
-    Write about your cat!
-  </textarea></br></br>
+  <textarea id="cat_description" name="cat[description]"><%= @cat.description %></textarea>
+
+</br></br>
 
   <button>SUBMIT</button>
 
