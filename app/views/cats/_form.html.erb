@@ -1,0 +1,54 @@
+
+<ul>
+  <% cat.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+  <% end %>
+</ul>
+
+<% if cat.persisted? %>
+<form action="<%= cat_url(cat.id) %>" method="post">
+  <input type="hidden" value="patch" name="_method">
+<% else %>
+<form action="<%= cats_url %>" method="post">
+<% end %>
+  <label for="cat_name"> Name: </label>
+  <input type="text" id="cat_name" name="cat[name]" value="<%= cat.name %>">
+</br>
+
+  <label for="cat_sex_female"> Female: </label>
+  <input type="radio" id="cat_sex_female" name="cat[sex]" value="F" <%= "checked" if cat.sex == "F" %> >
+
+  <label for="cat_sex_male"> Male: </label>
+  <input type="radio" id="cat_sex_male" name="cat[sex]" value="M" <%= "checked" if cat.sex == "M" %> >
+</br>
+
+  <label for="cat_color"> Color: </label>
+  <select id="cat_color" name="cat[color]">
+
+    <% if cat.color.nil? %>
+      <option>Choose a Color</option>
+    <% end %>
+    <option value="tabby" <%= "selected" if cat.color == "tabby" %>>Tabby</option>
+    <option value="tortoiseshell" <%= "selected" if cat.color == "tortoiseshell" %>>Tortoiseshell</option>
+    <option value="harlequin" <%= "selected" if cat.color == "harlequin" %>>Harlequin</option>
+    <option value="tuxedo" <%= "selected" if cat.color == "tuxedo" %>>Tuxedo</option>
+    <option value="smoke" <%= "selected" if cat.color == "smoke" %>>Smoke</option>
+    <option value="black" <%= "selected" if cat.color == "black" %>>Black</option>
+
+  </select>
+</br>
+
+  <label for="cat_birth_date"> Birth Date: </label>
+  <input type="date" id="cat_birth_date" name="cat[birth_date]" value="<%= cat.birth_date %>" >
+</br>
+
+  <label for="cat_description"> Description: </label>
+  <textarea id="cat_description" name="cat[description]"><%= cat.description %></textarea>
+
+</br></br>
+
+  <button>SUBMIT</button>
+
+</form>

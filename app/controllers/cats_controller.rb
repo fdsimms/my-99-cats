@@ -29,13 +29,13 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = cat.find(params[:id])
+    @cat = Cat.find(params[:id])
 
     render :edit
   end
 
   def update
-    @cat = cat.find(params[:id])
+    @cat = Cat.find(params[:id])
 
     if @cat.update(cat_params)
       redirect_to cat_url(@cat.id)
