@@ -8,6 +8,7 @@ class CatsController < ApplicationController
 
   def show
     @cat = Cat.find(params[:id])
+    @cat_rental_requests = @cat.cat_rental_requests.order('start_date, status')
 
     render :show
   end
@@ -43,6 +44,13 @@ class CatsController < ApplicationController
       render :edit
     end
 
+  end
+
+  def destroy
+    @cat = Cat.find(params[:id])
+
+    @cat.destroy
+    redirect_to cats_url
   end
 
   private

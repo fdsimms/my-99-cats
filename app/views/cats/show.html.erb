@@ -9,3 +9,19 @@
 <p> <%= @cat.description %> </p>
 
 <a href="<%= edit_cat_url(@cat.id) %>">Edit the Info for this Cat.</a>
+</br></br>
+
+<h2> Rental Requests for <%= @cat.name %> </h2>
+
+<ul>
+  <% @cat_rental_requests.each do |request| %>
+    <li>
+      From:<%= request.start_date %> To: <%= request.end_date %>
+      Status: <%= request.status.capitalize %>
+      <% if request.pending? %>
+      <%= button_to "Approve", approve_cat_rental_request_url(request.id), method: :patch%>
+      <%= button_to "Deny", deny_cat_rental_request_url(request.id), method: :patch%>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

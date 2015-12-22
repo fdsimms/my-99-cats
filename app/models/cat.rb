@@ -8,6 +8,8 @@ class Cat < ActiveRecord::Base
   validates :sex, inclusion: ["M", "F"]
   validates :color, inclusion: COLORS
 
+  has_many :cat_rental_requests, dependent: :destroy
+
   def age
     Date.today.year - birth_date.year
   end
