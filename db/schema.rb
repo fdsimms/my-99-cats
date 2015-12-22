@@ -14,6 +14,15 @@
 ActiveRecord::Schema.define(version: 20151222165000) do
 
   create_table "cats", force: :cascade do |t|
+    t.date     "birth_date"
+    t.string   "color"
+    t.string   "name",                  null: false
+    t.string   "sex",         limit: 1
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "cats", ["name"], name: "index_cats_on_name"
 
 end
