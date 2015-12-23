@@ -10,7 +10,7 @@ class CatsController < ApplicationController
 
   def show
     @cat = Cat.find(params[:id])
-    @cat_rental_requests = @cat.cat_rental_requests.order('start_date, status')
+    @cat_rental_requests = @cat.cat_rental_requests.order('start_date, status').includes(:requester)
 
     render :show
   end
@@ -57,6 +57,15 @@ class CatsController < ApplicationController
   end
 
   private
+
+  def verify_cat_ownership
+    @cat = current_user.cats.find(params[:id]) if current_user
+
+    unless @cat
+      flash[:errors] = "That's not your cat!"
+      redirect_to cat_url(params[:id])
+    end
+  end
 
   def cat_params
     params.require(:cat).permit(:birth_date, :name, :color, :sex, :description)

@@ -1,12 +1,17 @@
 class CatRentalRequest < ActiveRecord::Base
   STATUSES = ["PENDING", "APPROVED", "DENIED"]
 
-  validates :cat_id, :start_date, :end_date, presence: true
+  validates :user_id, :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: STATUSES
   validate :cannot_have_overlapping_approved_requests
 
   belongs_to :cat
 
+  belongs_to(
+    :requester,
+    class_name: 'User',
+    foreign_key: :user_id
+  )
 
   def deny!
     self.update!(status: "DENIED")

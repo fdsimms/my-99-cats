@@ -25,9 +25,18 @@
       <button>Logout</button>
   </form>
 <% else %>
-  <form action="<%= new_session_url %>" method="get">
-    <button>Login</button>
-  </form>
+  <% unless params[:controller] == "sessions" && params[:action] == 'new' %>
+    <form action="<%= new_session_url %>" method="get">
+      <button>Login</button>
+    </form>
+  <% end %>
+
+  <% unless params[:controller] == "users" && params[:action] == 'new' %>
+    <form action=" <%= new_user_url %> " method="get">
+      <button>Sign Up</button>
+    </form>
+  <% end %>
+
 <% end %>
 
 </body>

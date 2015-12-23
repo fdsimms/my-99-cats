@@ -21,22 +21,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_users_cat?(cat)
-    cat.user_id == current_user.id
+    cat.user_id == current_user.id if current_user
   end
 
   private
 
   def redirect_if_logged_in
     redirect_to cats_url if logged_in?
-  end
-
-  def verify_cat_ownership
-    @cat = current_user.cats.find(params[:id]) if current_user
-
-    unless @cat
-      flash[:errors] = "That's not your cat!"
-      redirect_to cat_url(params[:id])
-    end
   end
 
 end

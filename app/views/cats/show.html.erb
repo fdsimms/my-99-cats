@@ -8,16 +8,22 @@
 
 <p> <%= @cat.description %> </p>
 
+<% if current_users_cat?(@cat) %>
 <a href="<%= edit_cat_url(@cat.id) %>">Edit the Info for this Cat.</a>
-</br></br>
+</br>
+<% end %>
+
+</br>
 
 <h2> Rental Requests for <%= @cat.name %> </h2>
 
 <ul>
   <% @cat_rental_requests.each do |request| %>
     <li>
-      From:<%= request.start_date %> To: <%= request.end_date %>
-      Status: <%= request.status.capitalize %>
+      From: <%= request.start_date %></br>
+      To: <%= request.end_date %></br>
+      Status: <%= request.status.capitalize %></br>
+      Requester: <%= request.requester.username %></br>
       <% if request.pending? && current_users_cat?(@cat) %>
       <%= button_to "Approve", approve_cat_rental_request_url(request.id), method: :patch%>
       <%= button_to "Deny", deny_cat_rental_request_url(request.id), method: :patch%>

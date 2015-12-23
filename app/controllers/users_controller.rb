@@ -15,7 +15,8 @@ class UsersController < ApplicationController
       login_user!(@user)
       redirect_to cats_url
     else
-      flash.now[:errors] = @user.errors
+      flash.now[:errors] = @user.errors.full_messages.join("  ")
+      @sign_up_page = true
       render :new
     end
   end
