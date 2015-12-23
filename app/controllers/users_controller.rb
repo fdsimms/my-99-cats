@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :redirect_if_logged_in, only: [:new]
+
   def new
     @user = User.new
 
@@ -10,7 +12,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to user_url(@user)
+      login_user!(@user)
+      redirect_to cats_url
     else
       flash.now[:errors] = @user.errors
       render :new

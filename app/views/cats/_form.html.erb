@@ -17,6 +17,8 @@
   <input type="text" id="cat_name" name="cat[name]" value="<%= cat.name %>">
 </br>
 
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
   <label for="cat_sex_female"> Female: </label>
   <input type="radio" id="cat_sex_female" name="cat[sex]" value="F" <%= "checked" if cat.sex == "F" %> >
 

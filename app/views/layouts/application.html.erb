@@ -8,7 +8,27 @@
 </head>
 <body>
 
+<h3>
+  <% if current_user  %>
+    Logged in as <%= current_user.username %>
+  <% end %>
+</h3>
+
+<%= flash[:errors] %>
+
 <%= yield %>
+
+<% if current_user %>
+  <form action="<%= session_url %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="delete">
+      <button>Logout</button>
+  </form>
+<% else %>
+  <form action="<%= new_session_url %>" method="get">
+    <button>Login</button>
+  </form>
+<% end %>
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 class CatRentalRequestsController < ApplicationController
 
+  before_action :verify_cat_ownership, only: [:approve, :deny]
+
   def new
     @cat_rental_request = CatRentalRequest.new
     @cats = Cat.all
