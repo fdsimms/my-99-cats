@@ -1,0 +1,18 @@
+<h1>Sign Up Why Don't You?</h1>
+
+<form action="<%= users_url %>" method="post">
+
+  <label>Username:
+    <input
+      type="text" name="user[username]"
+      value="<%= @user.username %>">
+  </label>
+
+  <label>Password:
+    <input type="password" name="user[password]">
+  </label>
+
+</br>
+  <button>Submit</button>
+
+</form>
