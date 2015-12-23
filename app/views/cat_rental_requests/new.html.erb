@@ -5,9 +5,9 @@
   <label id="cat">Cat:</label>
 
   <select id="cat" name="cat_rental_request[cat_id]">
-    <option>Choose a Cat!</option>
+    <option value="">Choose a Cat!</option>
     <% @cats.each do |cat| %>
-      <option value=" <%= cat.id %>"> <%= cat.name %> </option>
+      <option value="<%= cat.id %>"> <%= cat.name %> </option>
     <% end %>
   </select>
 

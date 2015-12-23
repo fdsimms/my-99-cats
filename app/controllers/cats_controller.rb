@@ -1,6 +1,7 @@
 class CatsController < ApplicationController
 
   before_action :verify_cat_ownership, only: [:edit, :update]
+  before_action :verify_logged_in, only: [:new, :create]
 
   def index
     @cats = Cat.all

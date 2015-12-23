@@ -30,4 +30,10 @@ class ApplicationController < ActionController::Base
     redirect_to cats_url if logged_in?
   end
 
+  def verify_logged_in
+    unless logged_in?
+      flash[:errors] = "You must be logged in to do that."
+      redirect_to new_session_url
+    end
+  end
 end

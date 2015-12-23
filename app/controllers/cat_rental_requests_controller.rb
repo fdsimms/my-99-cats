@@ -1,6 +1,7 @@
 class CatRentalRequestsController < ApplicationController
 
   before_action :verify_cat_ownership, only: [:approve, :deny]
+  before_action :verify_logged_in, only: [:new, :create]
 
   def new
     @cat_rental_request = CatRentalRequest.new
@@ -15,6 +16,8 @@ class CatRentalRequestsController < ApplicationController
     if @cat_rental_request.save
       redirect_to cat_url(cat_rental_request_params[:cat_id])
     else
+      flash[:errors] = @cat_rental_request.errors.full_messages.join("  ")
+      @cats = Cat.all
       render :new
     end
   end

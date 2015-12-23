@@ -4,6 +4,7 @@ class CatRentalRequest < ActiveRecord::Base
   validates :user_id, :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: STATUSES
   validate :cannot_have_overlapping_approved_requests
+  validate :must_have_valid_start_and_end_dates
 
   belongs_to :cat
 
@@ -56,5 +57,19 @@ class CatRentalRequest < ActiveRecord::Base
       .where("end_date >= ?", self.start_date)
       .where(cat_id: self.cat_id)
       .where.not(id: self.id )
+  end
+
+  def must_have_valid_start_and_end_dates
+    unless starts_in_the_future? && ends_after_it_starts?
+      errors.add(:status, "Invalid start or end date.")
+    end
+  end
+
+  def starts_in_the_future?
+    self.start_date >= Date.today
+  end
+
+  def ends_after_it_starts?
+    self.start_date < self.end_date
   end
 end
